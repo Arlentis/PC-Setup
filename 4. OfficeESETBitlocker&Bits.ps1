@@ -10,7 +10,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 New-PSDrive -Name "X" -PSProvider FileSystem -Root "\\fons\sharedx" -Credential HLX\CallumL -Persist
 
 $ESETSetup = '\\fons\sharedx\healix it\temp\ESMC_Installer_x64_en_US_DHURLTEST.exe'
-$OfficeSetup = "\\fons\sharedx\healix it\callum\installs\Microsoft Office\Office 2013 Standard 32bit\setup.exe"
+$OfficeSetup = "\\fons\sharedx\\Healix IT\ComputerSetup\Microsoft Office\Office 2013 Standard 32bit\setup.exe"
 
 Start-Process -FilePath $ESETSetup -Verbose
 Start-Sleep -Seconds 480
