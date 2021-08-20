@@ -519,13 +519,13 @@ choco install adobereader
 #choco install anydesk
 #choco install cpu-z
 #choco install crystaldiskinfo
-choco install cutepdf
+#choco install cutepdf
 #choco install discord
 choco install drawio
 #choco install dropbox
 #choco install eartrumpet
 #choco install epicgameslauncher
-choco install firefox
+#choco install firefox
 #choco install firefoxesr
 #choco install fluent-terminal
 #choco install gimp
@@ -535,7 +535,7 @@ choco install googlechrome
 #choco install handbrake
 #choco install hwinfo
 #choco install imageresizerapp
-choco install licecap
+#choco install licecap
 choco install lightshot
 #choco install lively
 #choco install microsoft-teams
@@ -543,7 +543,7 @@ choco install lightshot
 #choco install nmap
 #choco install notepadplusplus
 choco install obs-studio
-choco install opera
+#choco install opera
 choco install pdf24
 #choco install picard
 #choco install powertoys
@@ -560,7 +560,7 @@ choco install skype
 #choco install steam
 #choco install synctrayzor
 #choco install teamspeak
-choco install teamviewer9
+#choco install teamviewer9
 #choco install vivaldi
 choco install vlc
 #choco install vmware-workstation-player
@@ -570,9 +570,9 @@ choco install vlc
 #choco install winaero-tweaker
 #choco install windows10-media-creation-tool
 #choco install winxcorners
-choco install wireshark
+#choco install wireshark
 choco install wiztree
-choco install zoom
+#choco install zoom
 
 
 #######################################################################
