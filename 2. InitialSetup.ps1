@@ -510,7 +510,7 @@ choco install vcredist2012
 choco install vcredist2013
 choco install vcredist2015
 choco install vcredist2017
-choco install rsat
+#choco install rsat
 
 #choco install 7-taskbar-tweaker
 choco install 7zip
