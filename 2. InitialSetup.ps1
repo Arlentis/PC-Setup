@@ -571,6 +571,7 @@ choco install vlc
 #choco install winaero-tweaker
 #choco install windows10-media-creation-tool
 #choco install winxcorners
+#choco install wireguard
 #choco install wireshark
 choco install wiztree
 #choco install zoom
