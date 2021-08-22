@@ -479,6 +479,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.We
 
 choco feature enable -n allowGlobalConfirmation
 
+choco install choco-upgrade-all-at-startup
 choco install dogtail.dotnet3.5sp1
 choco install dotnet1.1
 choco install dotnet3.5
