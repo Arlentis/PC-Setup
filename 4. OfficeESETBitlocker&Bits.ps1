@@ -9,12 +9,12 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 New-PSDrive -Name "X" -PSProvider FileSystem -Root "\\fons\sharedx" -Credential HLX\CallumL -Persist
 
-$ESETSetup = '\\fons\sharedx\healix it\temp\ESMC_Installer_x64_en_US_DHURLTEST.exe'
+$ESETSetup = '\\fons\sharedx\Healix IT\ComputerSetup\ESET Antivirus Installer.exe'
 $OfficeSetup = "\\fons\sharedx\\Healix IT\ComputerSetup\Microsoft Office\Office 2013 Standard 32bit\setup.exe"
 
 Write-Host "Installing ESET..."
 Start-Process -FilePath $ESETSetup -Verbose
-Start-Sleep -Seconds 480
+Start-Sleep -Seconds 300
 Write-Host "Installing Office..."
 Start-Process -FilePath $OfficeSetup -Verbose
 
