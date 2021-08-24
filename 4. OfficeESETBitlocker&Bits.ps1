@@ -14,7 +14,7 @@ $OfficeSetup = "\\fons\sharedx\\Healix IT\ComputerSetup\Microsoft Office\Office 
 
 Write-Host "Installing ESET..."
 Start-Process -FilePath $ESETSetup -Verbose
-Start-Sleep -Seconds 300
+Start-Sleep -Seconds 360
 Write-Host "Installing Office..."
 Start-Process -FilePath $OfficeSetup -Verbose
 
