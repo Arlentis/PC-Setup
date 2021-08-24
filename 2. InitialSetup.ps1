@@ -1,4 +1,4 @@
-﻿##############################################################
+##############################################################
 ### SELF-ELEVATE TO ADMIN
 
 If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
@@ -756,6 +756,7 @@ Set-NetConnectionProfile -InterfaceAlias WiFi1 -NetworkCategory Private -ErrorAc
 
 #######################################################################
 ###  ENABLE SMB1 TO ALLOW COMPUTER TO JOIN DOMAIN
+Start-Sleep -Seconds 10
 Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart
 Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol-Server -NoRestart
 Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol-Deprecation -NoRestart
