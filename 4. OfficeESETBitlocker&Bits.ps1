@@ -62,17 +62,21 @@ Write-Host "Installing Mimecast Security Agent..."
 
 $MimecastWebSecurity = "https://github.com/Arlentis/Installers/raw/main/Mimecast%20Security%20Agent%20(x64)%201.9.477.msi"
 $MimecastDownloadPath = "$env:USERPROFILE\Downloads\MimecastWebSecurity.msi"
-$MimecastCustomerKeyPath = "$env:USERPROFILE\Documents\CustomerKey"
+$MimecastCustomerKeyPath1 = "$env:USERPROFILE\Documents\CustomerKey"
+$MimecastCustomerKeyPath2 = "$env:USERPROFILE\Downloads\CustomerKey"
 
-New-Item $MimecastCustomerKeyPath
-Set-Content $MimecastCustomerKeyPath 'LNkrwaJmExM_5F1Xvmw1z_j3lfulfkfTaLfkc5vp2mGOiFVRzfvBRP_qn3KENtPOu2ClN5FZlrB1D368Gfs19tBajd8Zih1oAdrfdnI7w9qRYwjuOZEYngbsmVIwNSQCE8-iL0ve2wqtGSQxV5Ec5nU4gQ9h9c4aHy1JMHBfL5Y'
+New-Item $MimecastCustomerKeyPath1
+Set-Content $MimecastCustomerKeyPath1 'LNkrwaJmExM_5F1Xvmw1z_j3lfulfkfTaLfkc5vp2mGOiFVRzfvBRP_qn3KENtPOu2ClN5FZlrB1D368Gfs19tBajd8Zih1oAdrfdnI7w9qRYwjuOZEYngbsmVIwNSQCE8-iL0ve2wqtGSQxV5Ec5nU4gQ9h9c4aHy1JMHBfL5Y'
+New-Item $MimecastCustomerKeyPath2
+Set-Content $MimecastCustomerKeyPath2 'LNkrwaJmExM_5F1Xvmw1z_j3lfulfkfTaLfkc5vp2mGOiFVRzfvBRP_qn3KENtPOu2ClN5FZlrB1D368Gfs19tBajd8Zih1oAdrfdnI7w9qRYwjuOZEYngbsmVIwNSQCE8-iL0ve2wqtGSQxV5Ec5nU4gQ9h9c4aHy1JMHBfL5Y'
+
 
 Invoke-WebRequest $MimecastWebSecurity -OutFile $MimecastDownloadPath -Verbose
 
 Start-Sleep -Seconds 5
 Start-Process $MimecastDownloadPath
 
-Start-Sleep -Seconds 30
+Start-Sleep -Seconds 15
 
 $wshell = New-Object -ComObject wscript.shell;
 Sleep 2
@@ -93,9 +97,10 @@ Sleep 5
 $wshell.SendKeys("{ENTER}")
 Sleep 5
 $wshell.SendKeys("{ENTER}")
-Sleep 30
+Sleep 20
 $wshell.SendKeys("{ENTER}")
 
 
 Remove-Item $MimecastWebSecurity -Force -ErrorAction SilentlyContinue
-Remove-Item $MimecastCustomerKeyPath
+Remove-Item $MimecastCustomerKeyPath1
+Remove-Item $MimecastCustomerKeyPath2
