@@ -75,7 +75,7 @@ Start-Process $MimecastDownloadPath
 Start-Sleep -Seconds 30
 
 $wshell = New-Object -ComObject wscript.shell;
-Sleep 1
+Sleep 2
 $wshell.SendKeys("{ENTER}")
 Sleep 5
 $wshell.SendKeys("{ENTER}")
@@ -83,15 +83,15 @@ Sleep 5
 $wshell.SendKeys("{ENTER}")
 Sleep 5
 $wshell.SendKeys('CustomerKey')
-Sleep 2
+Sleep 5
 $wshell.SendKeys("{ENTER}")
 Sleep 5
 $wshell.SendKeys("{TAB}")
-Sleep 2
+Sleep 5
 $wshell.SendKeys("{ENTER}")
-Sleep 2
+Sleep 5
 $wshell.SendKeys("{ENTER}")
-Sleep 2
+Sleep 5
 $wshell.SendKeys("{ENTER}")
 Sleep 30
 $wshell.SendKeys("{ENTER}")
