@@ -585,7 +585,7 @@ $OpenVPNFilePath = "$env:USERPROFILE\Downloads\openvpn-connect-2.7.1.110_signed.
 Invoke-WebRequest $OVPNDownload -OutFile $OpenVPNFilePath -Verbose
 Start-Sleep -Seconds 5
 
-Start-Process C:\Users\Admin\Downloads\openvpn-connect-2.7.1.110_signed.msi
+Start-Process $OpenVPNFilePath
 
 Start-Sleep -Seconds 20
 Remove-Item $OpenVPNFilePath -Force -ErrorAction SilentlyContinue
