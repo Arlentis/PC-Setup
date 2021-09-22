@@ -56,3 +56,46 @@ Add-LocalGroupMember -Group "Administrators" -Member "HLX\Domain Users"
 Write-Host "Turning on Network Discovery & File+Printer Sharing..."
 netsh advfirewall firewall set rule group=”network discovery” new enable=yes
 netsh firewall set service type=fileandprint mode=enable profile=all
+
+### INSTALL MIMECAST SECURITY AGENT
+Write-Host "Installing Mimecast Security Agent..."
+
+$MimecastWebSecurity = "https://github.com/Arlentis/Installers/raw/main/Mimecast%20Security%20Agent%20(x64)%201.9.477.msi"
+$MimecastDownloadPath = "$env:USERPROFILE\Downloads\MimecastWebSecurity.msi"
+$MimecastCustomerKeyPath = "$env:USERPROFILE\Documents\CustomerKey"
+
+New-Item $MimecastCustomerKeyPath
+Set-Content $MimecastCustomerKeyPath 'LNkrwaJmExM_5F1Xvmw1z_j3lfulfkfTaLfkc5vp2mGOiFVRzfvBRP_qn3KENtPOu2ClN5FZlrB1D368Gfs19tBajd8Zih1oAdrfdnI7w9qRYwjuOZEYngbsmVIwNSQCE8-iL0ve2wqtGSQxV5Ec5nU4gQ9h9c4aHy1JMHBfL5Y'
+
+Invoke-WebRequest $MimecastWebSecurity -OutFile $MimecastDownloadPath -Verbose
+
+Start-Sleep -Seconds 5
+Start-Process $MimecastDownloadPath
+
+Start-Sleep -Seconds 30
+
+$wshell = New-Object -ComObject wscript.shell;
+Sleep 1
+$wshell.SendKeys("{ENTER}")
+Sleep 5
+$wshell.SendKeys("{ENTER}")
+Sleep 5
+$wshell.SendKeys("{ENTER}")
+Sleep 5
+$wshell.SendKeys('CustomerKey')
+Sleep 2
+$wshell.SendKeys("{ENTER}")
+Sleep 5
+$wshell.SendKeys("{TAB}")
+Sleep 2
+$wshell.SendKeys("{ENTER}")
+Sleep 2
+$wshell.SendKeys("{ENTER}")
+Sleep 2
+$wshell.SendKeys("{ENTER}")
+Sleep 30
+$wshell.SendKeys("{ENTER}")
+
+
+Remove-Item $MimecastWebSecurity -Force -ErrorAction SilentlyContinue
+Remove-Item $MimecastCustomerKeyPath
