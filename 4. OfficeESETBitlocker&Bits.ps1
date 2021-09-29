@@ -97,7 +97,7 @@ Sleep 5
 $wshell.SendKeys("{ENTER}")
 Sleep 5
 $wshell.SendKeys("{ENTER}")
-Sleep 20
+Sleep 120
 $wshell.SendKeys("{ENTER}")
 
 
