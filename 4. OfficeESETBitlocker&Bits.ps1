@@ -18,7 +18,7 @@ Start-Sleep -Seconds 360
 Write-Host "Installing Office..."
 Start-Process -FilePath $OfficeSetup -Verbose
 
-Start-Sleep -Seconds 900
+Start-Sleep -Seconds 1200
 
 ### OFFICE 2013 ACTIVATION
 Write-Host "Activating Office..."
