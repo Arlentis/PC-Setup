@@ -44,9 +44,12 @@ $BLRecoveryFileName = "BitLocker Recovery Key $BLRecoveryFileName1"
 (Get-BitLockerVolume -MountPoint $env:HOMEDRIVE).KeyProtector | Select-Object -Property "KeyProtectorId","RecoveryPassword" | Where-Object -Property "RecoveryPassword" -NE "" | FL | Out-File "$env:USERPROFILE\Desktop\$BLRecoveryFileName.txt"
 
 
-### COPY REMAPV2.BAT TO PUBLIC DESKTOP
+### COPY REMAPV2.BAT AND OPENVPN SHORTCUT TO PUBLIC DESKTOP
 Write-Host "Copying ReMap to the Public Desktop..."
 Copy-Item -Path "\\fons\sharedx\healix it\ReMapV2.bat" -Destination "$env:PUBLIC\Desktop\" -Force
+Copy-Item -Path "$env:HOMEDRIVE\ProgramData\Microsoft\Windows\Start Menu\Programs\OpenVPN Connect.lnk" -Destination "$env:PUBLIC\Desktop" -Force
+
+
 
 ### ADD DOMAIN USERS TO ADMINISTRATORS GROUP
 Write-Host "Adding Domain Users to the Administrators group..."
