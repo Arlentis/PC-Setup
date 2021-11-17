@@ -107,3 +107,5 @@ $wshell.SendKeys("{ENTER}")
 Remove-Item $MimecastWebSecurity -Force -ErrorAction SilentlyContinue
 Remove-Item $MimecastCustomerKeyPath1
 Remove-Item $MimecastCustomerKeyPath2
+
+TEST
