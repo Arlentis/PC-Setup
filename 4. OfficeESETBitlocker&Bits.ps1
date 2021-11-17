@@ -22,7 +22,7 @@ Start-Sleep -Seconds 1200
 
 ### OFFICE 2013 ACTIVATION
 Write-Host "Activating Office..."
-cd "C:\Program Files (x86)\Microsoft Office\Office15"
+Set-Location "C:\Program Files (x86)\Microsoft Office\Office15"
 cscript ospp.vbs /inpkey:8VHYT-6N33V-JDWGK-PX6B3-B96YG
 cscript ospp.vbs /act
 
@@ -37,11 +37,11 @@ Add-BitLockerKeyProtector -MountPoint $env:HOMEDRIVE -RecoveryPasswordProtector
 Write-Host "Backing Up Bitlocker Recovery Key..."
 Start-Sleep -Seconds 10
 ### BACKUP RECOVERY KEY
-$BLRecoveryFileName2 = (Get-BitLockerVolume -MountPoint $env:HOMEDRIVE).KeyProtector | Select-Object -Property "KeyProtectorId","RecoveryPassword" | Where-Object -Property "RecoveryPassword" -NE "" | ForEach {$_.KeyProtectorID}
+$BLRecoveryFileName2 = (Get-BitLockerVolume -MountPoint $env:HOMEDRIVE).KeyProtector | Select-Object -Property "KeyProtectorId","RecoveryPassword" | Where-Object -Property "RecoveryPassword" -NE "" | ForEach-Object {$_.KeyProtectorID}
 $BLRecoveryFileName1 = "$BLRecoveryFileName2".Trim('{}')
 $BLRecoveryFileName = "BitLocker Recovery Key $BLRecoveryFileName1"
-(Get-BitLockerVolume -MountPoint $env:HOMEDRIVE).KeyProtector | Select-Object -Property "KeyProtectorId","RecoveryPassword" | Where-Object -Property "RecoveryPassword" -NE "" | FL | Out-File "\\fons\sharedx\Healix IT\Healix Network\BitLocker Recovery\$BLRecoveryFileName.txt"
-(Get-BitLockerVolume -MountPoint $env:HOMEDRIVE).KeyProtector | Select-Object -Property "KeyProtectorId","RecoveryPassword" | Where-Object -Property "RecoveryPassword" -NE "" | FL | Out-File "$env:USERPROFILE\Desktop\$BLRecoveryFileName.txt"
+(Get-BitLockerVolume -MountPoint $env:HOMEDRIVE).KeyProtector | Select-Object -Property "KeyProtectorId","RecoveryPassword" | Where-Object -Property "RecoveryPassword" -NE "" | Format-List | Out-File "\\fons\sharedx\Healix IT\Healix Network\BitLocker Recovery\$BLRecoveryFileName.txt"
+(Get-BitLockerVolume -MountPoint $env:HOMEDRIVE).KeyProtector | Select-Object -Property "KeyProtectorId","RecoveryPassword" | Where-Object -Property "RecoveryPassword" -NE "" | Format-List | Out-File "$env:USERPROFILE\Desktop\$BLRecoveryFileName.txt"
 
 
 ### COPY REMAPV2.BAT AND OPENVPN SHORTCUT TO PUBLIC DESKTOP
@@ -82,25 +82,25 @@ Start-Process $MimecastDownloadPath
 Start-Sleep -Seconds 15
 
 $wshell = New-Object -ComObject wscript.shell;
-Sleep 2
+Start-Sleep 2
 $wshell.SendKeys("{ENTER}")
-Sleep 5
+Start-Sleep 5
 $wshell.SendKeys("{ENTER}")
-Sleep 5
+Start-Sleep 5
 $wshell.SendKeys("{ENTER}")
-Sleep 5
+Start-Sleep 5
 $wshell.SendKeys('CustomerKey')
-Sleep 5
+Start-Sleep 5
 $wshell.SendKeys("{ENTER}")
-Sleep 5
+Start-Sleep 5
 $wshell.SendKeys("{TAB}")
-Sleep 5
+Start-Sleep 5
 $wshell.SendKeys("{ENTER}")
-Sleep 5
+Start-Sleep 5
 $wshell.SendKeys("{ENTER}")
-Sleep 5
+Start-Sleep 5
 $wshell.SendKeys("{ENTER}")
-Sleep 120
+Start-Sleep 120
 $wshell.SendKeys("{ENTER}")
 
 
