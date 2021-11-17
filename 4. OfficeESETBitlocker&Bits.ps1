@@ -121,7 +121,7 @@ $ComputerDescription = $ComputerDescription1
 $session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://iris.hlx.int/powershell/ -Credential HLX\CLAdmin -Authentication Kerberos
 Import-PSSession $session -AllowClobber -Verbose
 
-Set-ADComputer -Identity HLX-CL -Location $ComputerLocation -Verbose
-Set-ADComputer -Identity HLX-CL -Description $ComputerDescription -Verbose
+Set-ADComputer -Identity $env:COMPUTERNAME -Location $ComputerLocation -Verbose
+Set-ADComputer -Identity $env:COMPUTERNAME -Description $ComputerDescription -Verbose
 
 Remove-PSSession $session 
