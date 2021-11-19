@@ -799,5 +799,5 @@ Rename-Computer -ComputerName $env:COMPUTERNAME -NewName $HLXComputerName
 
 
 #######################################################################
-### RESTART LAPTOP
+### RESTART COMPUTER
 Restart-Computer -Force
