@@ -9,8 +9,15 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 ##############################################################
 ### CHECK FOR WINDOWS UPDATES
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+Install-PackageProvider -Name NuGet -Force -Confirm:$false
+Install-Module PowerShellGet -Force -Confirm:$false
+
 wuauclt /detectnow /updatenow
-usoclient /startdownload /startinstall
+Install-Module PSWindowsUpdate -Force
+Import-Module PSWindowsUpdate -Force
+Get-WindowsUpdate -AcceptAll -ForceDownload -ForceInstall
+Install-WindowsUpdate -ForceDownload -ForceInstall -Confirm:$false
 
 ##############################################################
 ### FIND/REMOVE APPX PACKAGES AND UNINSTALL (EXCEPT PAINT, CALCULATOR, STORE, PHOTOS)
@@ -171,15 +178,15 @@ Function FixWhitelistedApps {
     
     Param([switch]$Debloat)
     
-    If(!(Get-AppxPackage -AllUsers | Select Microsoft.Paint3D, Microsoft.MSPaint, Microsoft.WindowsCalculator, Microsoft.WindowsStore, Microsoft.MicrosoftStickyNotes, Microsoft.WindowsSoundRecorder, Microsoft.Windows.Photos)) {
+    If(!(Get-AppxPackage -AllUsers | Select-Object Microsoft.Paint3D, Microsoft.MSPaint, Microsoft.WindowsCalculator, Microsoft.WindowsStore, Microsoft.MicrosoftStickyNotes, Microsoft.WindowsSoundRecorder, Microsoft.Windows.Photos)) {
     
-    Get-AppxPackage -allusers Microsoft.Paint3D | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-    Get-AppxPackage -allusers Microsoft.MSPaint | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-    Get-AppxPackage -allusers Microsoft.WindowsCalculator | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-    Get-AppxPackage -allusers Microsoft.WindowsStore | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-    Get-AppxPackage -allusers Microsoft.MicrosoftStickyNotes | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-    Get-AppxPackage -allusers Microsoft.WindowsSoundRecorder | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-    Get-AppxPackage -allusers Microsoft.Windows.Photos | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"} }
+    Get-AppxPackage -allusers Microsoft.Paint3D | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+    Get-AppxPackage -allusers Microsoft.MSPaint | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+    Get-AppxPackage -allusers Microsoft.WindowsCalculator | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+    Get-AppxPackage -allusers Microsoft.WindowsStore | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+    Get-AppxPackage -allusers Microsoft.MicrosoftStickyNotes | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+    Get-AppxPackage -allusers Microsoft.WindowsSoundRecorder | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+    Get-AppxPackage -allusers Microsoft.Windows.Photos | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"} }
 }
 
 Function CheckDMWService {
@@ -217,8 +224,8 @@ Write-Output "Finished all tasks."
 
 REMOVE ALL BUILT IN WIN10 APPS, THEN RE-INSTALL ESSENTIALS
 Get-AppxPackage * | Remove-AppPackage
-Get-AppXPackage *WindowsStore* -AllUsers | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-Get-AppXPackage *Calculator* -AllUsers | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+Get-AppXPackage *WindowsStore* -AllUsers | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+Get-AppXPackage *Calculator* -AllUsers | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 
 
 #######################################################################
@@ -475,7 +482,7 @@ IF(!(Test-Path $BitlockerTPMKeyPath))
 #######################################################################
 ### PROGRAMS INSTALL (CHOCO)
 
-Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 choco feature enable -n allowGlobalConfirmation
 
@@ -620,24 +627,24 @@ function Pin-App ([string]$appname, [switch]$unpin, [switch]$start, [switch]$tas
             if ($action -eq "Unpin") {
                 ((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items() | ?{$_.Name -eq $appname}).Verbs() | ?{$_.Name.replace('&','') -match 'Unpin from taskbar'} | %{$_.DoIt(); $exec = $true}
                 if ($exec) {
-                    Write "App '$appname' unpinned from Taskbar"
+                    Write-Output "App '$appname' unpinned from Taskbar"
                 } else {
                     if (-not $path -eq "") {
                         Pin-App-by-Path $path -Action $action
                     } else {
-                        Write "'$appname' not found or 'Unpin from taskbar' not found on item!"
+                        Write-Output "'$appname' not found or 'Unpin from taskbar' not found on item!"
                     }
                 }
             } else {
-                ((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items() | ?{$_.Name -eq $appname}).Verbs() | ?{$_.Name.replace('&','') -match 'Pin to taskbar'} | %{$_.DoIt(); $exec = $true}
+                ((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items() | Where-Object{$_.Name -eq $appname}).Verbs() | Where-Object{$_.Name.replace('&','') -match 'Pin to taskbar'} | ForEach-Object{$_.DoIt(); $exec = $true}
                 
                 if ($exec) {
-                    Write "App '$appname' pinned to Taskbar"
+                    Write-Output "App '$appname' pinned to Taskbar"
                 } else {
                     if (-not $path -eq "") {
                         Pin-App-by-Path $path -Action $action
                     } else {
-                        Write "'$appname' not found or 'Pin to taskbar' not found on item!"
+                        Write-Output "'$appname' not found or 'Pin to taskbar' not found on item!"
                     }
                 }
             }
@@ -650,15 +657,15 @@ function Pin-App ([string]$appname, [switch]$unpin, [switch]$start, [switch]$tas
         try {
             $exec = $false
             if ($action -eq "Unpin") {
-                ((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items() | ?{$_.Name -eq $appname}).Verbs() | ?{$_.Name.replace('&','') -match 'Unpin from Start'} | %{$_.DoIt(); $exec = $true}
+                ((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items() | Where-Object{$_.Name -eq $appname}).Verbs() | Where-Object{$_.Name.replace('&','') -match 'Unpin from Start'} | ForEach-Object{$_.DoIt(); $exec = $true}
                 
                 if ($exec) {
-                    Write "App '$appname' unpinned from Start"
+                    Write-Output "App '$appname' unpinned from Start"
                 } else {
                     if (-not $path -eq "") {
                         Pin-App-by-Path $path -Action $action -start
                     } else {
-                        Write "'$appname' not found or 'Unpin from Start' not found on item!"
+                        Write-Output "'$appname' not found or 'Unpin from Start' not found on item!"
                     }
                 }
             } else {
