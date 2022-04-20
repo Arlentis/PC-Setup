@@ -781,7 +781,6 @@ Stop-Process -ProcessName Skype -Force
 Stop-Process -ProcessName OneDrive -Force
 Stop-Process -ProcessName RainMeter -Force
 
-
 #######################################################################
 ### REMOVE ANY STOCK DESKTOP SHORTCUTS
 Remove-Item -Path $env:ALLUSERSPROFILE\Desktop\*
@@ -789,15 +788,21 @@ Remove-Item -Path $env:USERPROFILE\Desktop\*
 Remove-Item -Path $env:HOMEDRIVE\Users\Public\Desktop\*
 
 #######################################################################
-### RENAME COMPUTER
-[System.Reflection.ASsembly]::LoadWithPartialName("Microsoft.VisualBasic")
+### PROMPT TO CONNECT TO OPENVPN
 
-$HLXComputerName1 = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Computer Name","PC Name","HLX-")
-$HLXComputerName = $HLXComputerName1
-
-Rename-Computer -ComputerName $env:COMPUTERNAME -NewName $HLXComputerName 
-
+Add-Type -AssemblyName PresentationCore,PresentationFramework
+$ButtonType = [System.Windows.MessageBoxButton]::OKCancel
+$MessageIcon = [System.Windows.MessageBoxImage]::Exclamation
+$MessageBody = "Connect to the Healix VPN!"
+$MessageTitle = "Healix VPN"
+$Result = [System.Windows.MessageBox]::Show($MessageBody,$MessageTitle,$ButtonType,$MessageIcon)
 
 #######################################################################
-### RESTART COMPUTER
-Restart-Computer -Force
+### RENAME, ADD TO DOMAIN AND RESTART
+
+[System.Reflection.ASsembly]::LoadWithPartialName("Microsoft.VisualBasic")
+$domain = "hlx.int"
+$hostname1 = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Computer Name","PC Name","HLX-")
+$hostname = $hostname1
+Add-Computer -DomainName $domain -ComputerName $env:COMPUTERNAME -NewName $hostname -Credential HLX\CLAdmin -Restart
+
