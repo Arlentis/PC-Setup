@@ -1,3 +1,3 @@
 Things to do:
 
-- Rename AND Domain computer in just the initial script, taking away need for restart in the middle
+- Add in prompt to update location/description in AD at the very end
