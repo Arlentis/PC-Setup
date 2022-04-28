@@ -12,6 +12,7 @@ New-PSDrive -Name "X" -PSProvider FileSystem -Root "\\fons\sharedx" -Credential 
 $ESETSetup = '\\fons\sharedx\Healix IT\ComputerSetup\ESET Antivirus Installer.exe'
 $OfficeSetup = "\\fons\sharedx\\Healix IT\ComputerSetup\Microsoft Office\Office 2013 Standard 32bit\setup.exe"
 
+### INSTALL ESET
 Write-Host "Installing ESET..."
 Start-Process -FilePath $ESETSetup -Verbose
 
@@ -23,6 +24,7 @@ $MessageBody = "Click OK when ESET has finished installing!"
 $MessageTitle = "ESET Antivirus"
 $Result = [System.Windows.MessageBox]::Show($MessageBody,$MessageTitle,$ButtonType,$MessageIcon)
 
+### INSTALL OFFICE
 Write-Host "Installing Office..."
 Start-Process -FilePath $OfficeSetup -Verbose
 
@@ -49,6 +51,7 @@ Add-BitLockerKeyProtector -MountPoint $env:HOMEDRIVE -RecoveryPasswordProtector
 
 Write-Host "Backing Up Bitlocker Recovery Key..."
 Start-Sleep -Seconds 10
+
 ### BACKUP RECOVERY KEY
 $BLRecoveryFileName2 = (Get-BitLockerVolume -MountPoint $env:HOMEDRIVE).KeyProtector | Select-Object -Property "KeyProtectorId","RecoveryPassword" | Where-Object -Property "RecoveryPassword" -NE "" | ForEach-Object {$_.KeyProtectorID}
 $BLRecoveryFileName1 = "$BLRecoveryFileName2".Trim('{}')
