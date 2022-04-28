@@ -18,22 +18,15 @@ Start-Process -FilePath $ESETSetup -Verbose
 
 ### PROMPT FOR ESET INSTALLATION FINISHED 
 Add-Type -AssemblyName PresentationCore,PresentationFramework
-$ButtonType = [System.Windows.MessageBoxButton]::OKCancel
-$MessageIcon = [System.Windows.MessageBoxImage]::Exclamation
-$MessageBody = "Click OK when ESET has finished installing!"
-$MessageTitle = "ESET Antivirus"
-$Result = [System.Windows.MessageBox]::Show($MessageBody,$MessageTitle,$ButtonType,$MessageIcon)
+$ESETDonePrompt = [System.Windows.MessageBox]::Show("Click when ESET has finished installing!","ESET Antivirus",[System.Windows.MessageBoxButton]::OKCancel,[System.Windows.MessageBoxImage]::Exclamation)
+
 
 ### INSTALL OFFICE
 Write-Host "Installing Office..."
 Start-Process -FilePath $OfficeSetup -Verbose
 
 ### PROMPT FOR OFFICE INSTALLATION FINISHED
-$ButtonType2 = [System.Windows.MessageBoxButton]::OKCancel
-$MessageIcon2 = [System.Windows.MessageBoxImage]::Exclamation
-$MessageBody2 = "Click OK when Office has finished installing!"
-$MessageTitle2 = "Microsoft Office"
-$Result2 = [System.Windows.MessageBox]::Show($MessageBody2,$MessageTitle2,$ButtonType2,$MessageIcon2)
+$OfficeDonePrompt = [System.Windows.MessageBox]::Show("Click when Office has finished installing!","Microsoft Office",[System.Windows.MessageBoxButton]::OKCancel,[System.Windows.MessageBoxImage]::Exclamation)
 
 ### OFFICE 2013 ACTIVATION
 Write-Host "Activating Office..."
