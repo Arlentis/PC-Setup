@@ -136,21 +136,3 @@ Start-Process $LSAgentPath
 Start-Sleep -Seconds 20
 Remove-Item $LSAgentPath -Force -ErrorAction SilentlyContinue
 
-### CHANGE COMPUTER LOCATION AND DESCRIPTION
-
-#[System.Reflection.ASsembly]::LoadWithPartialName("Microsoft.VisualBasic")
-
-#$ComputerLocation1 = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Computer Location","PC Location","Who's using this computer?")
-#$ComputerLocation = $ComputerLocation1
-
-#$ComputerDescription1 = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Computer Description","PC Description","Asset Sticker? What's this being used for? Service Desk Number?")
-#$ComputerDescription = $ComputerDescription1
-
-#$session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://iris.hlx.int/powershell/ -Credential HLX\CLAdmin -Authentication Kerberos
-#Import-PSSession $session -AllowClobber -Verbose
-
-#Set-ADComputer -Identity $env:COMPUTERNAME -Location $ComputerLocation -Verbose
-#Set-ADComputer -Identity $env:COMPUTERNAME -Description $ComputerDescription -Verbose
-
-#Remove-PSSession $session
-
