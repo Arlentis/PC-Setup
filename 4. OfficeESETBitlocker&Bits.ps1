@@ -14,11 +14,24 @@ $OfficeSetup = "\\fons\sharedx\\Healix IT\ComputerSetup\Microsoft Office\Office 
 
 Write-Host "Installing ESET..."
 Start-Process -FilePath $ESETSetup -Verbose
-Start-Sleep -Seconds 360
+
+### PROMPT FOR ESET INSTALLATION FINISHED 
+Add-Type -AssemblyName PresentationCore,PresentationFramework
+$ButtonType = [System.Windows.MessageBoxButton]::OKCancel
+$MessageIcon = [System.Windows.MessageBoxImage]::Exclamation
+$MessageBody = "Click OK when ESET has finished installing!"
+$MessageTitle = "ESET Antivirus"
+$Result = [System.Windows.MessageBox]::Show($MessageBody,$MessageTitle,$ButtonType,$MessageIcon)
+
 Write-Host "Installing Office..."
 Start-Process -FilePath $OfficeSetup -Verbose
 
-Start-Sleep -Seconds 1200
+### PROMPT FOR OFFICE INSTALLATION FINISHED
+$ButtonType2 = [System.Windows.MessageBoxButton]::OKCancel
+$MessageIcon2 = [System.Windows.MessageBoxImage]::Exclamation
+$MessageBody2 = "Click OK when Office has finished installing!"
+$MessageTitle2 = "Microsoft Office"
+$Result2 = [System.Windows.MessageBox]::Show($MessageBody2,$MessageTitle2,$ButtonType2,$MessageIcon2)
 
 ### OFFICE 2013 ACTIVATION
 Write-Host "Activating Office..."
