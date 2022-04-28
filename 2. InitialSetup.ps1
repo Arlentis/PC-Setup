@@ -16,7 +16,7 @@ Install-Module PowerShellGet -Force -Confirm:$false
 wuauclt /detectnow /updatenow
 Install-Module PSWindowsUpdate -Force
 Import-Module PSWindowsUpdate -Force
-Get-WindowsUpdate -AcceptAll -ForceDownload -ForceInstall
+Get-WindowsUpdate -AcceptAll -ForceDownload -ForceInstall -IgnoreReboot
 Install-WindowsUpdate -ForceDownload -ForceInstall -Confirm:$false
 
 ##############################################################
