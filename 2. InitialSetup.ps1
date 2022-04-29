@@ -545,6 +545,7 @@ choco install googlechrome
 #choco install licecap
 choco install lightshot
 #choco install lively
+choco install lsagent
 #choco install microsoft-teams
 #choco install modernflyouts
 #choco install nmap
