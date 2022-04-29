@@ -117,15 +117,3 @@ Remove-Item $MimecastWebSecurity -Force -ErrorAction SilentlyContinue
 Remove-Item $MimecastCustomerKeyPath1
 Remove-Item $MimecastCustomerKeyPath2
 
-### INSTALL LANSWEEPER AGENT
-
-$LSAgent ="https://github.com/Arlentis/Work-Healix/raw/main/LsAgent-windows.msi"
-$LSAgentPath = "$env:USERPROFILE\Downloads\LsAgent-windows.msi"
-Invoke-WebRequest $LSAgent -OutFile $LSAgentPath -Verbose
-Start-Sleep -Seconds 5
-
-Start-Process $LSAgentPath
-
-Start-Sleep -Seconds 20
-Remove-Item $LSAgentPath -Force -ErrorAction SilentlyContinue
-
