@@ -222,12 +222,6 @@ CheckDMWService
 CheckInstallService
 Write-Output "Finished all tasks."
 
-REMOVE ALL BUILT IN WIN10 APPS, THEN RE-INSTALL ESSENTIALS
-Get-AppxPackage * | Remove-AppPackage
-Get-AppXPackage *WindowsStore* -AllUsers | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-Get-AppXPackage *Calculator* -AllUsers | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-
-
 #######################################################################
 ### SET TRAY TO SHOW ALL ICONS IN TASKBAR
 
