@@ -794,9 +794,8 @@ $Result = [System.Windows.MessageBox]::Show($MessageBody,$MessageTitle,$ButtonTy
 #######################################################################
 ### RENAME, ADD TO DOMAIN AND RESTART
 
-[System.Reflection.ASsembly]::LoadWithPartialName("Microsoft.VisualBasic")
-$domain = "hlx.int"
+$Domain = "hlx.int"
 $Serial = Get-WmiObject win32_bios | select -expand serialnumber
-$NewName = "HLX-" + $serial.SubString(5, 6)
-Add-Computer -DomainName $domain -ComputerName $env:COMPUTERNAME -NewName $NewName -Credential HLX\CLAdmin -Restart
+$NewName = "HLX-" + $Serial.substring($Serial.length - 6, 6)
+Add-Computer -DomainName $Domain -ComputerName $env:COMPUTERNAME -NewName $NewName -Credential HLX\CLAdmin -Restart
 
