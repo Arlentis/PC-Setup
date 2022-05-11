@@ -797,7 +797,7 @@ $Result = [System.Windows.MessageBox]::Show($MessageBody,$MessageTitle,$ButtonTy
 
 [System.Reflection.ASsembly]::LoadWithPartialName("Microsoft.VisualBasic")
 $domain = "hlx.int"
-$hostname1 = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Computer Name","PC Name","HLX-")
-$hostname = $hostname1
-Add-Computer -DomainName $domain -ComputerName $env:COMPUTERNAME -NewName $hostname -Credential HLX\CLAdmin -Restart
+$Serial = Get-WmiObject win32_bios | select -expand serialnumber
+$NewName = "HLX-" + $serial.SubString(5, 6)
+Add-Computer -DomainName $domain -ComputerName $env:COMPUTERNAME -NewName $NewName -Credential HLX\CLAdmin -Restart
 
