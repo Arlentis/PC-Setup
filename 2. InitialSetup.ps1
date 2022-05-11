@@ -7,16 +7,15 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
     Exit
 }
 
-##############################################################
 ### CHECK FOR WINDOWS UPDATES
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Install-PackageProvider -Name NuGet -Force -Confirm:$false
 Install-Module PowerShellGet -Force -Confirm:$false
 
 wuauclt /detectnow /updatenow
-Install-Module PSWindowsUpdate -Force
-Import-Module PSWindowsUpdate -Force
-Get-WindowsUpdate -AcceptAll -ForceDownload -ForceInstall -IgnoreReboot
+Install-Module PSWindowsUpdate -Force -ErrorAction SilentlyContinue
+Import-Module PSWindowsUpdate -Force -ErrorAction SilentlyContinue
+Get-WindowsUpdate -AcceptAll -ForceDownload -ForceInstall -IgnoreReboot -Confirm:$false
 Install-WindowsUpdate -ForceDownload -ForceInstall -Confirm:$false
 
 ##############################################################
