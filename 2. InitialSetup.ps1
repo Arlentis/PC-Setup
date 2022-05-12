@@ -796,6 +796,6 @@ $Result = [System.Windows.MessageBox]::Show($MessageBody,$MessageTitle,$ButtonTy
 
 $Domain = "hlx.int"
 $Serial = Get-WmiObject win32_bios | select -expand serialnumber
-$NewName = "HLX-" + $Serial.substring($Serial.length - 6, 6)
+$NewName = "HLX-" + $Serial.substring($Serial.length - 8, 8)
 Add-Computer -DomainName $Domain -ComputerName $env:COMPUTERNAME -NewName $NewName -Credential HLX\CLAdmin -Restart
 
