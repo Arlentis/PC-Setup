@@ -16,7 +16,7 @@ wuauclt /detectnow /updatenow
 Install-Module PSWindowsUpdate -Force -ErrorAction SilentlyContinue
 Import-Module PSWindowsUpdate -Force -ErrorAction SilentlyContinue
 Get-WindowsUpdate -AcceptAll -ForceDownload -ForceInstall -IgnoreReboot -Confirm:$false
-Install-WindowsUpdate -ForceDownload -ForceInstall -Confirm:$false
+Install-WindowsUpdate -ForceDownload -ForceInstall -IgnoreReboot -Confirm:$false
 
 ##############################################################
 ### FIND/REMOVE APPX PACKAGES AND UNINSTALL (EXCEPT PAINT, CALCULATOR, STORE, PHOTOS)
