@@ -828,3 +828,16 @@ $NewName = "HLX-" + $Serial.substring($Serial.length - 8, 8)
 Write-Host "New computer name will be:" $NewName
 Start-Sleep 15
 Add-Computer -DomainName $Domain -ComputerName $env:COMPUTERNAME -NewName $NewName -Credential $AdminCreds -Restart -Options JoinWithNewName
+
+
+# Install OpenVPN if it's a laptop
+# Fix the "Add to Domain" section
+# Add domain users to local administrators after domained
+# Change ESET, Office and MimecastAgent to install after domained and restarted for reliability
+# Prompt to set the location of the laptop in AD to the desired user - Pop up box with "Enter name of intended user:" - and autofill AD
+# Add in Verification check for Healix-ification and warn of anything skipped/missing
+
+
+
+
+#RUNONCE REG KEY: C:\WINDOWS\system32\WindowsPowerShell\v1.0\powershell.exe -noprofile -sta -WindowStyle Hidden -File "C:\Test\Test.ps1"
